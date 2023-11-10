@@ -1,7 +1,5 @@
 /* Write a method to replace all spaces in a string with '%20'.
 
-IF WE GET CUT OFF: https://meet.google.com/fgd-zyrp-vjs
-
 // shift by n in "1" op
 // slower = shift b n in "n" ops
 in = [H                   ]
@@ -26,12 +24,20 @@ const case0int = 13 // <--
 // "Mr   John   Smith"
 // " ... "
 
-const URLify = (arr, int) => {
-  for()
+const URLify = (str, int) => {
+  let j = 0;
+  for (let i = 0; i < int; i++) {
+    if (str[i] === " ") {
+      for (j = (str.length - 1); j > (i + 2); j--) {
+        str[j] = str[j-2];
+      }
+      str[j--] = "0"
+      str[j--] = "2"
+      str[j--] = "%"
+    }
+  }
 
-
-
-  return arr
+  return str.join("")
 }
 
 console.log(URLify(case0, case0int))
