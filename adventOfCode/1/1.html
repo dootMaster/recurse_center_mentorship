@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 1</title>
+
+    <p class="content"></p>
+</head>
+<body>
+
+<input type="file" id="fileInput" />
+<pre id="output"></pre>
+
+<script>
+  document.getElementById('fileInput').addEventListener('change', handleFileSelect)
+
+  function calibrationReader(input) {
+    let currentLineBreakIndex = input.indexOf('\n')
+    let calibrationResult = 0
+
+    while(currentLineBreakIndex > 0) {
+      const currentLine = input.substring(0, currentLineBreakIndex)
+      const onlyDigits = currentLine.match(/\d/g)
+      const firstDigit = onlyDigits[0]
+      const lastDigit = onlyDigits[onlyDigits.length - 1]
+
+      calibrationResult += parseInt(firstDigit + lastDigit)
+
+      input = input.substring(currentLineBreakIndex + 1)
+      currentLineBreakIndex = input.indexOf('\n')
+    }
+
+    return calibrationResult
+  }
+
+  function handleFileSelect(event) {
+    const content = document.querySelector(".content");
+    const [file] = document.querySelector("input[type=file]").files;
+    const reader = new FileReader()
+
+    reader.addEventListener(
+      "load",
+      () => {
+        content.innerText = calibrationReader(reader.result)
+      },
+      false,
+    )
+
+    if (file) {
+      reader.readAsText(file)
+    }
+  }
+</script>
+
+</body>
+</html>
