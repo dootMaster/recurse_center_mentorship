@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advent of Code: Day 1</title>
+
+    <p class="content"></p>
+</head>
+<body>
+
+<input type="file" id="fileInput" />
+<pre id="output"></pre>
+
+<script>
+  document.getElementById('fileInput').addEventListener('change', handleFileSelect)
+
+  const numberTracker = line => {
+    //
+  }
+
+  const symbolTracker = line => {
+    //
+  }
+
+  const solver = input => {
+    let currentLineBreakIndex = input.indexOf('\r\n')
+
+    let solution = 0
+
+    while (currentLineBreakIndex > 0) {
+      const currentLine = input.substring(0, currentLineBreakIndex)
+
+      solution += gameParser(currentLine)
+
+      input = input.substring(currentLineBreakIndex + 1)
+      currentLineBreakIndex = input.indexOf('\r\n')
+    }
+
+    return solution
+  }
+
+  function handleFileSelect(event) {
+    const content = document.querySelector(".content");
+    const [file] = document.querySelector("input[type=file]").files;
+    const reader = new FileReader()
+
+    reader.addEventListener(
+      "load",
+      () => {
+        content.innerText = solver(reader.result)
+      },
+      false,
+    )
+
+    if (file) {
+      reader.readAsText(file)
+    }
+  }
+</script>
+
+</body>
+</html>

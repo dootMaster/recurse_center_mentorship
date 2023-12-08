@@ -15,58 +15,47 @@
 <script>
   document.getElementById('fileInput').addEventListener('change', handleFileSelect)
 
-  // which games would have been possible if the bag contained only
-  // 12 red cubes, 13 green cubes, and 14 blue cubes?
-
-  // Game 1: 7 green, 14 red, 5 blue; 8 red, 4 green; 6 green, 18 red, 9 blue
-
-  // const cubes = {
-  //   red: 12,
-  //   green: 13,
-  //   blue: 14
-  // }
-
-// ["7 green, 14 red, 5 blue", "8 red, 4 green", "6 green, 18 red, 9 blue"]
-
   function gameParser(line) {
     const semicolonSpace = ': '
     const game = line.substring(line.indexOf(semicolonSpace) + 1).trimStart()
     const rounds = game.split('; ')
+    const powerMap = {}
+
     for (let round of rounds) {
       round = round.split(', ')
       for (let cubes of round) {
         const spaceIndex = cubes.indexOf(' ')
         const amount = parseInt(cubes.substring(0, spaceIndex))
         const color = cubes.substring(spaceIndex + 1)
-        // console.log(amount, color)
-        if (amount > 12 && color === 'red') {
-          return false
-        } else if (amount > 13 && color === 'green') {
-          return false
-        } else if (amount > 14 && color === 'blue') {
-          return false
+
+        if (powerMap[color] === undefined) {
+          powerMap[color] = amount
+        } else if (amount > powerMap[color]) {
+          powerMap[color] = amount
         }
       }
     }
-    return true
+    let power = 1
+    for (const color in powerMap) {
+      power *= powerMap[color]
+    }
+    return power
   }
 
   const solver = input => {
     let currentLineBreakIndex = input.indexOf('\r\n')
-    let currentGameId = 1
+
     let solution = 0
 
     while (currentLineBreakIndex > 0) {
       const currentLine = input.substring(0, currentLineBreakIndex)
-      if (gameParser(currentLine)) {
-        console.log(currentGameId)
-        solution += currentGameId
-      }
-      currentGameId++
+
+      solution += gameParser(currentLine)
+
       input = input.substring(currentLineBreakIndex + 1)
       currentLineBreakIndex = input.indexOf('\r\n')
     }
-    console.log(solution)
+
     return solution
   }
 
