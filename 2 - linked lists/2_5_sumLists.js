@@ -66,6 +66,17 @@ const reverseSumLists = (list1, list2) => {
 
 // reverseSumLists(one, two).print()
 
+// 8 8 9
+// 1 1 1
+// [9, 9, 10]
+// let sum = 0
+// sum = 8 * 10
+// sum = (80 * 10) + (8 * 10)
+// sum = 880 + 9
+
+// listsSums = 1000
+
+
 const sumLists = (list1, list2) => {
   const sumArr = [] // this probably hurts space complexity
 
