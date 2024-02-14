@@ -1,0 +1,1 @@
+// implement three stacks using one array
