@@ -25,7 +25,7 @@ class StackLinkedList {
 
   pop() {
     if (!this.head) {
-      return null
+      return undefined
     }
     const currentData = this.head.data
     this.head = this.head.next
@@ -34,12 +34,16 @@ class StackLinkedList {
 
   print() {
     let current = this.head
+    const printArray = []
     while (current) {
-      console.log(current.data)
+      printArray.push(current.data)
       current = current.next
     }
+    console.log(printArray)
   }
 }
+
+module.exports = { StackLinkedList, Node }
 
 const stack = new Stack_LinkedList()
 
