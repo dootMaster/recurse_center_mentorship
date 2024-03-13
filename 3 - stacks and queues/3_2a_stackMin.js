@@ -3,41 +3,26 @@ const StackArray = require("./shared/Arr_stack")
 class StackArrayWithMin extends StackArray {
   constructor() {
     super()
-    this._min = []
+    this._min = new StackArray()
   }
 
   push(data) {
     super.push(data)
-    this._minPush(data)
+    const peek = this._min.peek()
+    if (peek < data) {
+      this._min.push(peek)
+    } else {
+      this._min.push(data)
+    }
   }
 
   pop() {
-    this._minPop()
+    this._min.pop()
     return super.pop()
   }
 
-  _minPush(data) {
-    if (this._min.length === 0) {
-      this._min.push(data)
-    } else if (data <= this._min[this._min.length - 1]) {
-      this._min.push(data)
-    } else {
-      this._min.push(this._min[this._min.length - 1])
-    }
-  }
-
-  _minPop() {
-    if (this._min.length) {
-      this._min.pop()
-    }
-  }
-
   getMin() {
-    if (this._min.length) {
-      return this._min[this._min.length - 1]
-    } else {
-      return undefined
-    }
+    return this._min.peek()
   }
 }
 

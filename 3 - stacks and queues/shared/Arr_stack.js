@@ -23,9 +23,17 @@ class StackArray {
     }
   }
 
+  peek() {
+    return this._stack[this._stack.length - 1]
+  }
+
+  isEmpty() {
+    return this._stack.length === 0
+  }
+
   print() {
     console.log(this._stack)
   }
 }
 
-module.exports = StackArray
+module.exports = { StackArray }
